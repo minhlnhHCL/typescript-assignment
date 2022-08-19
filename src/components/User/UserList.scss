@@ -1,0 +1,28 @@
+.btn-create {
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+    border: 0;
+    background: transparent;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.link-div {
+    text-decoration: none;
+    color: black;
+    font-size: 1.25rem;
+}
+
+
+.list-container {
+    margin: 0 auto;
+    max-width: 480px;
+    padding: 0 16px;
+
+    .list-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+}
