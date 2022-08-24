@@ -37,7 +37,6 @@ export const userSLice = createSlice({
                 state.users = [newPayload, ...state.users]
                 return state
             }
-            return state
         },
         editUser: (state, action: PayloadAction<IUser>) => {
             const index = state.users.findIndex(el => el.id == action.payload.id);

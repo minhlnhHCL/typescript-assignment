@@ -1,11 +1,11 @@
 import './UserWrapper.scss'
 import { useNavigate } from 'react-router-dom'
-import { deleteUser } from '/store/userSlice'
-import { useAppDispatch } from '/store/hooks'
-import { deleteReq } from '/utils/api-requests'
+import { deleteUser } from 'store/userSlice'
+import { useAppDispatch } from 'store/hooks'
+import { deleteReq } from 'utils/api-requests'
 import { IUser } from '../UserInterface'
-import { useLoadingContext } from '/context/LoadingContext'
-import { setModal } from '/store/modalSlice'
+import { useLoadingContext } from 'context/LoadingContext'
+import { setModal } from 'store/modalSlice'
 
 const UserWrapper = ({ data }: { data: IUser }) => {
     const dispatch = useAppDispatch()
@@ -34,7 +34,7 @@ const UserWrapper = ({ data }: { data: IUser }) => {
     const onDelete = () => {
         dispatch(setModal({
             title: 'Confirmation',
-            children: 'Are you sure you want to delete',
+            children: 'Are you sure you want to delete this user ?',
             open: true,
             successCb: deleteHandler
         }))

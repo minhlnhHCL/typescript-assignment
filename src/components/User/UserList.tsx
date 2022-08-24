@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import './UserList.scss'
 import { useNavigate } from 'react-router-dom'
-import { getUsers } from '/store/userSlice'
-import { get } from '/utils/api-requests'
-import { useAppDispatch, useAppSelector } from '/store/hooks'
+import { getUsers } from 'store/userSlice'
+import { get } from 'utils/api-requests'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import UserWrapper from './UserWrapper/UserWrapper'
 import { IUser } from './UserInterface'
-import { useLoadingContext } from '/context/LoadingContext'
+import { useLoadingContext } from 'context/LoadingContext'
 
 const UserList = () => {
     const { users } = useAppSelector(state => state.users)

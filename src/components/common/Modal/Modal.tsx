@@ -1,8 +1,8 @@
 import './Modal.scss'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '/store/hooks'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import PortalContainer from '../Portal/Portal'
-import { setModal } from '/store/modalSlice'
+import { setModal } from 'store/modalSlice'
 
 const Modal = () => {
   const navigate = useNavigate()
@@ -32,8 +32,10 @@ const Modal = () => {
             {children}
           </div>
           <div className="modal-actions">
-            <button onClick={closeHandler}>cancel</button>
-            <button onClick={successCb}>OK</button>
+            <div className="action-container">
+              <button className='btn cancel' onClick={closeHandler}>cancel</button>
+              <button className='btn submit' onClick={successCb}>OK</button>
+            </div>
           </div>
         </div>
       </div>

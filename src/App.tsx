@@ -1,10 +1,10 @@
 import { lazy, Suspense } from 'react'
 import { Provider } from 'react-redux'
-import UserList from '/components/User/UserList'
-import { LoadingProvider } from '/context/LoadingContext'
+import UserList from 'components/User/UserList'
+import { LoadingProvider } from 'context/LoadingContext'
 import store from './store'
 import { Route, Routes } from 'react-router-dom'
-import Loading from '/components/Loading/Loading'
+import Loading from 'components/Loading/Loading'
 import Form from './components/Form/Form'
 import Modal from './components/common/Modal/Modal'
 

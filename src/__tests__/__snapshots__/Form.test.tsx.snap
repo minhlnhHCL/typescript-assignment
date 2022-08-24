@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Form should display an empty form 1`] = `
+<div>
+  <div
+    class="form-wrapper"
+  >
+    <form
+      class="form"
+    >
+      <div
+        class="d-flex-ac"
+      >
+        <label
+          class="custom-label"
+          for="firstName"
+        >
+          First Name
+        </label>
+        <input
+          class="custom-input "
+          id="firstName"
+          name="firstName"
+          placeholder="First Name"
+          value=""
+        />
+      </div>
+      <div
+        class="d-flex-ac mt-32"
+      >
+        <label
+          class="custom-label"
+          for="lastName"
+        >
+          Last Name
+        </label>
+        <input
+          class="custom-input"
+          id="lastName"
+          name="lastName"
+          placeholder="Last Name"
+          value=""
+        />
+      </div>
+      <div
+        class="d-flex-ac mt-32"
+      >
+        <label
+          class="custom-label"
+          for="companyTitle"
+        >
+          Company Title
+        </label>
+        <input
+          class="custom-input"
+          id="companyTitle"
+          name="companyTitle"
+          placeholder="Company Title"
+          value=""
+        />
+      </div>
+      <div
+        class="form-actions"
+      >
+        <div
+          class="action-container"
+        >
+          <button
+            class="btn cancel"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            aria-label="submit"
+            class="btn submit"
+            disabled=""
+            name="btn-submit"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

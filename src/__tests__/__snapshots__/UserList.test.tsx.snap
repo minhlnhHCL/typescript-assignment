@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User List should run its side effect 1`] = `
+<div>
+  <div
+    class="list-container mt-32"
+  >
+    <button
+      class="btn-create"
+    >
+      Create New User
+    </button>
+    <div
+      class="list-wrapper"
+    />
+  </div>
+</div>
+`;

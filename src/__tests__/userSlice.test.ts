@@ -1,4 +1,4 @@
-import reducer, { addUser, deleteUser, editUser, UserState } from '/store/userSlice'
+import reducer, { addUser, deleteUser, editUser, UserState } from 'store/userSlice'
 
 test('should handle a new user being added to an existed list', () => {
     const previousState: UserState = {

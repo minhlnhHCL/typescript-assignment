@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const path = require('path');
 const webpack = require('webpack');
 
@@ -15,15 +17,31 @@ module.exports = {
     },
     target: 'web',
     output: {
-        filename: 'bundle.[hash].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'build'),
         publicPath: '/',
+        filename: isDevelopment
+            ? 'static/js/[name].js'
+            : 'static/js/[name].[contenthash:8].js',
+        chunkFilename: isDevelopment
+            ? 'static/js/[name].chunk.js'
+            : 'static/js/[name].[contenthash:8].chunk.js',
+        assetModuleFilename: 'static/media/[name].[hash][ext]',
 
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
         }),
+        new MiniCssExtractPlugin({
+            filename: isDevelopment
+                ? 'static/css/[name].css'
+                : 'static/css/[name].[contenthash:8].css',
+            chunkFilename: isDevelopment
+                ? 'static/css/[id].css'
+                : 'static/css/[id].[contenthash:8].css',
+        }),
+
         isDevelopment && new webpack.HotModuleReplacementPlugin(),
         isDevelopment && new ReactRefreshWebpackPlugin(),
     ],
@@ -31,7 +49,7 @@ module.exports = {
         modules: [__dirname, 'src', 'node_modules'],
         extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
         alias: {
-            '': path.resolve(__dirname, 'src')
+            '': path.resolve(__dirname, 'src/')
         }
     },
     module: {
@@ -60,5 +78,10 @@ module.exports = {
                 use: ['file-loader'],
             },
         ],
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
     },
 };

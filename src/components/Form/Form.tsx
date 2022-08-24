@@ -2,11 +2,11 @@ import React, { FormEvent, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { addUser, editUser } from '../../store/userSlice'
 import './Form.scss'
-import { useAppDispatch, useAppSelector } from '/store/hooks'
-import { put, post, get } from '/utils/api-requests'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { put, post, get } from 'utils/api-requests'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { IUser } from '../User/UserInterface'
-import { useLoadingContext } from '/context/LoadingContext'
+import { useLoadingContext } from 'context/LoadingContext'
 
 const Form = () => {
     //Declare initial values
@@ -32,7 +32,7 @@ const Form = () => {
             onLoading()
             try {
                 const res = await get({ url: `/${userId}` })
-                setData(res.data)
+                setData(res.data as IUser)
             } catch (error) {
                 console.log(error)
             } finally {
@@ -55,8 +55,8 @@ const Form = () => {
         onLoading()
         try {
             let url = '/add'
-            if (data.id) {
-                url = `/${data.id}`
+            if (userId) {
+                url = `/${userId}`
                 const req = await put({ url: url, body: data })
                 return successHandler(req, editUser)
 
@@ -87,7 +87,7 @@ const Form = () => {
                     <input id='lastName' className='custom-input' placeholder='Last Name' name='lastName' value={data.lastName} onChange={(e) => setData({ ...data, lastName: e.target.value })} />
                 </div>
                 <div className='d-flex-ac mt-32'>
-                    <label htmlFor='companyTitle' className='custom-label'>Company title</label>
+                    <label htmlFor='companyTitle' className='custom-label'>Company Title</label>
                     <input id='companyTitle' className='custom-input' placeholder='Company Title' name='companyTitle' value={data.company?.title} onChange={(e) => setData({ ...data, company: { ...data.company, title: e.target.value } })} />
                 </div>
 
