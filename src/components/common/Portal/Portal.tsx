@@ -4,7 +4,7 @@ type Props = {
 }
 
 const PortalContainer = ({ children }: Props) => {
-    const modalRoot = document.getElementById("modal-root");
+    const modalRoot = document.getElementById("modal-root") as HTMLElement;
     if (!modalRoot) return;
     return createPortal(
         children, modalRoot);

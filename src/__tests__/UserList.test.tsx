@@ -23,7 +23,7 @@ const sampleUsers = [{
     image: 'https://robohash.org/hicveldicta.png',
     age: 21,
     company: {
-        title: "Front End Engineer",
+        title: "IT Help Desk",
     },
 }]
 
@@ -43,9 +43,9 @@ jest.mock('react-router-dom', () => ({
 
 describe('User List', () => {
     beforeEach(() => {
-        (useAppDispatch as jest.Mock).mockImplementationOnce(() => jest.fn());
+        (useAppDispatch as jest.Mock).mockReturnValue(() => jest.fn());
         (useNavigate as jest.Mock).mockReturnValue(() => { });
-        (useAppSelector as jest.Mock).mockImplementation(() => { });
+        (useAppSelector as jest.Mock).mockReturnValue(() => { });
         (get as jest.Mock).mockResolvedValue({
             data: {
                 users: []
@@ -66,13 +66,13 @@ describe('User List', () => {
                 users: sampleUsers
             }
         });
-        const { container } = renderWithRedux(<UserList />, { offLoading, onLoading });
+        const { container, findByText } = renderWithRedux(<UserList />, { offLoading, onLoading });
         expect(get).toBeCalled();
         await waitFor(() => expect(onLoading).toBeCalled());
         expect(useAppDispatch).toBeCalled();
 
         await waitFor(() => expect(offLoading).toBeCalled());
         expect(container).toMatchSnapshot();
-
+        
     })
 })

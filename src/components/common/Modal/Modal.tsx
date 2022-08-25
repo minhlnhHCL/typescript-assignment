@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import PortalContainer from '../Portal/Portal'
 import { setModal } from 'store/modalSlice'
+import { createPortal } from 'react-dom'
 
 const Modal = () => {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ const Modal = () => {
     }))
   }
 
-  return (
+  const content = (
     <div className={`modal-container ${open ? 'active' : 'active out'}`}>
       <div className='modal-background'>
         <div className="modal">
@@ -42,6 +43,7 @@ const Modal = () => {
     </div>
 
   )
+  return createPortal(content, document.getElementById('modal-root') as HTMLElement);
 }
 
 export default Modal
