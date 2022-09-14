@@ -6,5 +6,6 @@ export interface IUser {
     age?: number,
     company?: {
         title: string
-    }
+    },
+    bloodGroup?: string
 }

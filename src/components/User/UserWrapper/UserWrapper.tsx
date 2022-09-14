@@ -6,6 +6,7 @@ import { deleteReq } from 'utils/api-requests'
 import { IUser } from '../UserInterface'
 import { useLoadingContext } from 'context/LoadingContext'
 import { setModal } from 'store/modalSlice'
+import { showToast } from 'store/toastSlice'
 
 const UserWrapper = ({ data }: { data: IUser }) => {
     const dispatch = useAppDispatch()
@@ -27,6 +28,10 @@ const UserWrapper = ({ data }: { data: IUser }) => {
                 title: '',
                 children: '',
                 successCb: () => { }
+            }))
+            dispatch(showToast({
+                msg: 'Deleted User Successfully',
+                status: 'success'
             }))
         }
     }

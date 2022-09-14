@@ -7,6 +7,10 @@ import { useAppDispatch, useAppSelector } from "store/hooks"
 import { renderWithRedux } from "test-util"
 import { deleteReq } from "utils/api-requests"
 import Modal from 'components/common/Modal/Modal'
+import ReactDOM from "react-dom"
+import { ReactNode, ReactPortal } from "react"
+import { setModal } from "store/modalSlice"
+import { deleteUser } from "store/userSlice"
 
 jest.mock("store/hooks", () => ({
     ...jest.requireActual("react-redux"),
@@ -34,6 +38,15 @@ const editUserData: IUser = {
 }
 
 describe('User Wrapper', () => {
+    const oldCreatePortal = ReactDOM.createPortal;
+    beforeAll(() => {
+        ReactDOM.createPortal = (node: ReactNode): ReactPortal =>
+            node as ReactPortal;
+    });
+
+    afterAll(() => {
+        ReactDOM.createPortal = oldCreatePortal;
+    });
     beforeEach(() => {
         (useAppDispatch as jest.Mock).mockImplementationOnce(() => jest.fn());
         (useNavigate as jest.Mock).mockReturnValue(() => { });
@@ -41,8 +54,11 @@ describe('User Wrapper', () => {
     });
 
     it('should render user info', async () => {
-        const { getByText } = renderWithRedux(<UserWrapper data={editUserData} />);
+        const { getByText, container } = renderWithRedux(<UserWrapper data={editUserData} />);
+        expect(getByText('Minh')).toBeInTheDocument();
+        expect(getByText('Luong')).toBeInTheDocument();
         expect(getByText('Front End Engineer')).toBeInTheDocument();
+        expect(container).toMatchSnapshot();
     })
 
 
@@ -61,10 +77,19 @@ describe('User Wrapper', () => {
                 successCb: successCb
             }
         })
-        renderWithRedux(<UserWrapper data={editUserData} />, { onLoading, offLoading });
+        const { store } = renderWithRedux(<UserWrapper data={editUserData} />, { onLoading, offLoading });
         fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
         expect(useAppDispatch).toBeCalled();
-        renderWithRedux(<Modal />);
+        render(<Modal />)
         fireEvent.click(screen.getByRole('button', { name: 'OK' }));
+        expect(useAppDispatch).toBeCalled();
+        store.dispatch(setModal({
+            title: 'Confirmation',
+            children: 'Are you sure you want to delete this user ?',
+            open: true,
+            successCb: successCb
+        }));
+        store.dispatch(deleteUser(editUserData));
+        expect(store.getState().users.users).toEqual([])
     });
 })

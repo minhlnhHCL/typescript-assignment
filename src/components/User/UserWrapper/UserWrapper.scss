@@ -3,6 +3,7 @@
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     margin: 16px 0px;
+    letter-spacing: 1;
 
     .user-wrapper {
         .avatar {
@@ -33,6 +34,7 @@
             &.edit {
                 background: rgb(113, 158, 183);
             }
+
             &.cancel {
                 background: rgba(228, 79, 79, 0.885);
             }

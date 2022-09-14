@@ -11,8 +11,7 @@ import { renderWithRedux } from "test-util"
 import { get, post, put } from "utils/api-requests"
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { IUser } from "components/User/UserInterface"
-import reducer, { addUser, deleteUser, editUser, UserState } from 'store/userSlice'
-
+import { addUser, editUser, getUsers } from "store/userSlice"
 
 jest.mock("store/hooks", () => ({
     ...jest.requireActual("react-redux"),
@@ -70,6 +69,26 @@ const sampleUsers: IUser[] = [{
     },
 }]
 
+const sampleEditUser: IUser[] = [{
+    id: 1,
+    firstName: "Ter",
+    lastName: "Med",
+    image: 'https://robohash.org/hicveldicta.png',
+    age: 25,
+    company: {
+        title: "IT Help Desk",
+    },
+}, {
+    id: 2,
+    firstName: "Min",
+    lastName: "Min",
+    image: 'https://robohash.org/hicveldicta.png',
+    age: 21,
+    company: {
+        title: "Front End Engineer",
+    },
+}]
+
 describe("User Form", () => {
     beforeEach(() => {
         (useAppDispatch as jest.Mock).mockImplementationOnce(() => jest.fn());
@@ -97,18 +116,16 @@ describe("User Form", () => {
         const onLoading = jest.fn();
         const offLoading = jest.fn();
         const navigate = jest.fn();
-        const dispatch = jest.fn();
         const newInput = {
             ...addUserData,
             id: 31
         };
-        (useAppDispatch as jest.Mock).mockReturnValue(dispatch);
         (useNavigate as jest.Mock).mockReturnValue(navigate);
         (post as jest.Mock).mockResolvedValue({
             data: newInput
         });
 
-        renderWithRedux(<Form />, { onLoading, offLoading });
+        const { store } = renderWithRedux(<Form />, { onLoading, offLoading });
 
         fireEvent.change(screen.getByLabelText('First Name'), {
             target: { value: newInput.firstName, name: 'firstName' }
@@ -123,16 +140,15 @@ describe("User Form", () => {
         });
 
         expect(screen.getByRole('button', { name: 'submit' }));
-        // screen.getByRole('button', { name: 'submit' });
         fireEvent.click(screen.getByRole('button', { name: 'submit' }));
         await waitFor(() => expect(onLoading).toBeCalled());
         expect(post).toBeCalled();
         expect(post).toBeCalledWith({ url: '/add', body: newInput });
         await waitFor(() => expect(offLoading).toBeCalled());
-        expect(dispatch).toBeCalled();
-        // expect(dispatch).toBeCalledWith(reducer({ users: [] }, addUser(newInput)));
-        expect(navigate).toBeCalled();
-        expect(navigate).toBeCalledWith('/');
+        expect(useAppDispatch).toBeCalled();
+        store.dispatch(addUser(newInput))
+        const data = store.getState().users.users
+        expect(data).toEqual([newInput])
 
     });
 
@@ -150,7 +166,7 @@ describe("User Form", () => {
             firstName: 'Ter',
             lastName: 'Med',
             company: {
-                title: 'IT help desk'
+                title: 'IT Help Desk'
             }
         };
 
@@ -165,7 +181,8 @@ describe("User Form", () => {
         (useNavigate as jest.Mock).mockReturnValue(navigate);
 
 
-        const { container } = renderWithRedux(<Form />, { onLoading, offLoading });
+        const { store } = renderWithRedux(<Form />, { onLoading, offLoading });
+        store.dispatch(getUsers(sampleUsers))
         await waitFor(() => expect(onLoading).toBeCalled());
         expect(get).toBeCalled();
         expect(get).toBeCalledWith({ url: `/${editUserData.id}` });
@@ -186,9 +203,10 @@ describe("User Form", () => {
         await waitFor(() => expect(onLoading).toBeCalled());
         expect(put).toBeCalled();
         expect(put).toBeCalledWith({ url: `/${newInput.id}`, body: newInput });
-        expect(useAppDispatch).toBeCalled();
         await waitFor(() => expect(offLoading).toBeCalled());
-        expect(navigate).toBeCalled();
-        expect(navigate).toBeCalledWith('/');
+        expect(useAppDispatch).toBeCalled();
+        store.dispatch(editUser(newInput));
+        const data = store.getState().users.users;
+        expect(data).toEqual(sampleEditUser)
     })
 })

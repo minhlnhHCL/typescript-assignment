@@ -8,18 +8,20 @@ import UserWrapper from './UserWrapper/UserWrapper'
 import { IUser } from './UserInterface'
 import { useLoadingContext } from 'context/LoadingContext'
 
+
+
 const UserList = () => {
     const { users } = useAppSelector(state => state.users)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const {onLoading, offLoading} = useLoadingContext()
+    const { onLoading, offLoading } = useLoadingContext()
 
     useEffect(() => {
         onLoading()
         const getData = async () => {
             try {
                 if (users.length === 0 || users.length === 1) {
-                    const res = await get({url: ''})
+                    const res = await get({ url: '' })
                     if (res.status === 200) {
                         return dispatch(getUsers(res.data.users))
                     }
@@ -33,6 +35,11 @@ const UserList = () => {
         getData()
     }, [users])
 
+    // const countBloodGroup = users.reduce((allItem, obj) => {
+
+    //     return allItem
+    // }, {})
+
     return (
         <div className='list-container mt-32'>
             <button className='btn-create' onClick={() => {
@@ -40,7 +47,7 @@ const UserList = () => {
             }}>Create New User</button>
             <div className='list-wrapper'>
                 {
-                    users !== undefined && users.length !== 0 && users.map((item: IUser, idx) => (
+                    users.map((item: IUser, idx) => (
                         <UserWrapper key={`${item.id}-${idx}`} data={item} />
                     ))
                 }

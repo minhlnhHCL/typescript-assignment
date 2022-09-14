@@ -2,10 +2,9 @@ import { renderWithRedux } from "test-util"
 import UserList from "components/User/UserList"
 import { useNavigate } from "react-router-dom"
 import { cleanup, waitFor } from '@testing-library/react'
-import { baseUrl, get } from "utils/api-requests"
+import { get } from "utils/api-requests"
 import { useAppDispatch, useAppSelector } from "store/hooks"
-import type { AppDispatch } from 'store/index'
-import { useDispatch } from "react-redux"
+import { getUsers } from "store/userSlice"
 
 const sampleUsers = [{
     id: 1,
@@ -58,21 +57,23 @@ describe('User List', () => {
     it('should run its side effect', async () => {
         const onLoading = jest.fn();
         const offLoading = jest.fn();
-            (useAppSelector as jest.Mock).mockReturnValue({
-                users: []
-            });
+        (useAppSelector as jest.Mock).mockReturnValue({
+            users: []
+        });
         (get as jest.Mock).mockResolvedValueOnce({
             data: {
                 users: sampleUsers
             }
         });
-        const { container, findByText } = renderWithRedux(<UserList />, { offLoading, onLoading });
+        const { container, store } = renderWithRedux(<UserList />, { offLoading, onLoading });
         expect(get).toBeCalled();
         await waitFor(() => expect(onLoading).toBeCalled());
         expect(useAppDispatch).toBeCalled();
-
+        store.dispatch(getUsers(sampleUsers))
         await waitFor(() => expect(offLoading).toBeCalled());
+        const data = store.getState().users.users
+        expect(data).toEqual(sampleUsers);
         expect(container).toMatchSnapshot();
-        
+
     })
 })

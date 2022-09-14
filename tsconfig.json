@@ -18,11 +18,11 @@
         "baseUrl": ".",
         "paths": {
             "*": [
-                "./src/*"
+                "src/*"
             ]
         }
     },
     "include": [
         "src/**/*"
-    ]
+, "webpack.config.js", "public/webpack.config.js"    ]
 }

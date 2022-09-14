@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Wrapper should render user info 1`] = `
+<div>
+  <div
+    class="user-card"
+  >
+    <div
+      class="user-wrapper d-flex-sb"
+    >
+      <div
+        class="d-flex"
+      >
+        <div
+          class="avatar"
+        >
+          <img
+            src="https://robohash.org/hicveldicta.png"
+          />
+        </div>
+        <div
+          class="info ml-32 d-fc"
+        >
+          <div
+            class="d-flex-wrap"
+          >
+            <p>
+              Minh
+            </p>
+            <p
+              class="ml-4"
+            >
+              Luong
+            </p>
+          </div>
+          <div
+            class="mt--20 fs-14"
+          >
+            <p>
+              Front End Engineer
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          class="btn edit"
+        >
+          Edit
+        </button>
+        <button
+          class="btn cancel mt-8"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

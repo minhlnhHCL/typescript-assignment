@@ -6,7 +6,6 @@ import { setModal } from 'store/modalSlice'
 import { createPortal } from 'react-dom'
 
 const Modal = () => {
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { children, open, title, successCb } = useAppSelector(state => state.modal)
 

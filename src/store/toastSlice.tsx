@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface IToastDetails {
     status: string,
-    title: string,
     msg: string
 }
 
@@ -11,11 +10,7 @@ export interface IToast {
 }
 
 const initialState: IToast = {
-    notification: {
-        status: '',
-        title: '',
-        msg: ''
-    }
+    notification: null
 }
 
 const toastSLice = createSlice({
@@ -30,3 +25,7 @@ const toastSLice = createSlice({
         }
     }
 })
+
+export const { showToast, hideToast } = toastSLice.actions
+
+export default toastSLice.reducer

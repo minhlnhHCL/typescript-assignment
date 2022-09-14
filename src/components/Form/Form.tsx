@@ -7,6 +7,7 @@ import { put, post, get } from 'utils/api-requests'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { IUser } from '../User/UserInterface'
 import { useLoadingContext } from 'context/LoadingContext'
+import { showToast } from 'store/toastSlice'
 
 const Form = () => {
     //Declare initial values
@@ -48,6 +49,10 @@ const Form = () => {
         offLoading()
         dispatch(reducer(res.data))
         navigate('/')
+        dispatch(showToast({
+            msg: `${userId ? 'Edited User Successfully' : 'Add New User Successfully'}`,
+            status: 'success'
+        }))
     }
 
     const onSubmit = async (event: FormEvent) => {
@@ -71,7 +76,6 @@ const Form = () => {
 
         } catch (error) {
             offLoading()
-            console.log(error)
         }
     }
 

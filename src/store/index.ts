@@ -4,11 +4,12 @@ import { combineReducers } from 'redux'
 
 import users from './userSlice'
 import modal from './modalSlice'
-
+import toast from './toastSlice'
 
 const reducer = combineReducers({
     users,
-    modal
+    modal,
+    toast
 })
 const setupStore = (preloadedState?: PreloadedState<RootState>) => {
     return configureStore({
