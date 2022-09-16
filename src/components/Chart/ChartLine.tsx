@@ -12,6 +12,7 @@ import {
 export interface IData {
     label: string
     value: number
+    color?: string
 }
 
 export interface BarChartProps {
@@ -59,10 +60,10 @@ export const AxisLeft = ({ scale }: AxisLeftProps) => {
 }
 
 export const Bars = ({ data, height, scaleX, scaleY }: BarsProps) => {
-    // const randomColor = data.map((_, index) => {
-    //     const rand = 'rgb(' + (Math.floor((256 - 199) * Math.random()) + 200) + ',' + (Math.floor((256 - 199) * Math.random()) + 200) + ',' + (Math.floor((256 - 199) * Math.random()) + 200) + ')';
-    //     return rand
-    // })
+    const randomColor = data.map((_, index) => {
+        const rand = 'rgb(' + (Math.floor((256 - 199) * Math.random()) + 200) + ',' + (Math.floor((256 - 199) * Math.random()) + 200) + ',' + (Math.floor((256 - 199) * Math.random()) + 200) + ')';
+        return rand
+    })
     return (
         <>
             {data.map(({ value, label }, ind) => (
@@ -72,14 +73,14 @@ export const Bars = ({ data, height, scaleX, scaleY }: BarsProps) => {
                     y={scaleY(value)}
                     width={scaleX.bandwidth()}
                     height={height - scaleY(value)}
-                    fill={`teal`}
+                    fill={randomColor[ind]}
                 />
             ))}
         </>
     );
 }
 
-export function BarChart() {
+export const BarChart = () => {
 
     const data: IData[] = [
         { label: "Apples", value: 100 },
@@ -97,24 +98,6 @@ export function BarChart() {
         { label: "Starfruit", value: 160 },
         { label: "Avocadoes", value: 100 },
         { label: "Durians", value: 150 },
-        // { label: "Blueberries", value: 150 },
-        // { label: "Blackberries", value: 150 },
-        // { label: "Dragon fruit", value: 150 },
-        // { label: "Papayas", value: 150 },
-        // { label: "Plums", value: 150 },
-        // { label: "Lychees", value: 150 },
-        // { label: "Figs", value: 150 },
-        // { label: "Apricots", value: 150 },
-        // { label: "Pineapples", value: 150 },
-        // { label: "Limes", value: 150 },
-        // { label: "Peaches", value: 150 },
-        // { label: "Pomegranates", value: 150 },
-        // { label: "Tamarinds", value: 150 },
-        // { label: "Melons", value: 150 },
-        // { label: "Mulberries", value: 150 },
-        // { label: "Gooseberries", value: 150 },
-        // { label: "Sapodillas", value: 150 },
-        // { label: "Cashews", value: 150 },
     ];
 
     const margin = { top: 10, right: 0, bottom: 20, left: 30 };

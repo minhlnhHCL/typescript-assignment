@@ -11,6 +11,7 @@ import Toast from 'components/common/Toast/Toast'
 import { BarChart, IData } from 'components/Chart/ChartLine'
 import StyledComponent from 'components/StyledComponent/StyledComponent'
 import D3Transition from 'components/Chart/D3Transition'
+import D3DonutChart from 'components/Chart/D3DonutChart'
 
 const UserList = lazy(() => import('components/User/UserList'))
 // const ChartLine = lazy(() => import('components/Chart/ChartLine'))
@@ -26,6 +27,7 @@ const App = () => {
                         <Route path='edit/:userId' element={<Form />} />
                         <Route path='/d3chart' element={<BarChart />} />
                         <Route path='/d3transition' element={<D3Transition />} />
+                        <Route path='/d3donut' element={<D3DonutChart />} />
                         <Route path="/style" element={<StyledComponent />} />
 
                     </Routes>
