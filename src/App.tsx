@@ -29,7 +29,6 @@ const App = () => {
                         <Route path='/d3transition' element={<D3Transition />} />
                         <Route path='/d3donut' element={<D3DonutChart />} />
                         <Route path="/style" element={<StyledComponent />} />
-
                     </Routes>
                     <Modal />
                     <Toast />
